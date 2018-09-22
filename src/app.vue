@@ -2,10 +2,13 @@
     <div id="app">
         <div class="uk-container">
             <div class="uk-margin-top">
-                <greetings v-if="currentSection === 'greetings'" @picked-site-type="pickSiteType"></greetings>
-                <landing v-if="currentSection === 'landing'"></landing>
-                <visitcard v-if="currentSection === 'visitcard'"></visitcard>
-                <store v-if="currentSection === 'store'"></store>
+                <h1 class="uk-text-center uk-margin-large">Выбери себе сайт!</h1>
+                <greetings 
+                v-if="currentSection === 'greetings'" 
+                @picked-site-type="setSiteType"
+                />
+                <price
+                />
             </div>
         </div>
     </div>
@@ -13,9 +16,7 @@
 
 <script>
 import greetings from './components/greetings.vue';
-import landing from './components/landing.vue';
-import visitcard from './components/visitcard.vue';
-import store from './components/store.vue';
+import price from './components/price.vue';
 
 export default {
     name: 'app',
@@ -25,20 +26,14 @@ export default {
         }
     },
     methods: {
-        pickSiteType(option) {
+        setSiteType(option) {
             this.currentSection = option;
         }
     },
     components: {
         greetings,
-        landing,
-        visitcard,
-        store
+        price
     },
 }
  
 </script>
-
-<style scoped>
-    
-</style>

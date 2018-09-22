@@ -1,6 +1,6 @@
 <template>
     <div class="greetings uk-text-center">
-        <h1>Выбери себе сайт!</h1>
+        
         <p>
             Вы хотите заказать какой-то сайт?<br>
             Выберите, что вам нужно!
@@ -19,7 +19,9 @@
                 <input type="radio" name="greetings" value="store" v-model="pickedOption"> 
             </label>
         </div>
-        <button class="uk-button uk-button-secondary" type="button" @click="pickingType">Далее</button>
+        <button class="uk-button uk-button-secondary" type="button" @click="pickingType">
+            Далее <span uk-icon="arrow-right"></span>
+        </button>
     </div>    
 </template>
 

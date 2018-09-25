@@ -1,22 +1,24 @@
 <template>
     <div id="app">
-        <div class="uk-container">
-            <div class="uk-margin-top">
-                <greetings v-if="this.steps[this.lastStepIndex] == 'greetings'"/>
-                <remakingLink v-if="this.steps[this.lastStepIndex] == 'remaking'"/>
-                <developingType v-if="this.steps[this.lastStepIndex] == 'developingType'"/>
-                <promotionLink v-if="this.steps[this.lastStepIndex] == 'promotionLink'"/>
-            </div>
+        <div class="uk-margin-top">
+            <greetings v-if="this.steps[this.lastStepIndex] == 'greetings'"/>
+            <remakingLink v-if="this.steps[this.lastStepIndex] == 'remakingLink'"/>
+            <developingType v-if="this.steps[this.lastStepIndex] == 'developingType'"/>
+            <promotionLink v-if="this.steps[this.lastStepIndex] == 'promotionLink'"/>
+            <promotionInfo v-if="this.steps[this.lastStepIndex] == 'promotionInfo'"/>
+            <contacts v-if="this.steps[this.lastStepIndex] == 'contacts'"/>
         </div>
     </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import {mapGetters} from 'vuex';
 import greetings from './components/greetings.vue';
 import remakingLink from './components/remakingLink.vue';
 import promotionLink from './components/promotionLink.vue';
 import developingType from './components/developingType.vue';
+import promotionInfo from './components/promotionInfo.vue';
+import contacts from './components/contacts.vue';
 
 export default {
     name: 'app',
@@ -24,16 +26,15 @@ export default {
         greetings,
         remakingLink,
         promotionLink,
-        developingType
+        developingType,
+        promotionInfo,
+        contacts
     },
     computed: {
         ...mapGetters([
             'steps',
             'lastStepIndex'
         ])
-    },
-    created() {
-        console.log(this.steps, this.lastStepIndex )
     }
 }
  

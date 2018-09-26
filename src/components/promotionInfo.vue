@@ -7,25 +7,25 @@
             </p>
             <div class="uk-margin">
                 <label>
-                    <input type="checkbox" name="promotionServicesInputs" v-model="services" value="SEO">
+                    <input type="checkbox" name="services" v-model="services" value="SEO">
                     SEO
                 </label>
             </div>
             <div class="uk-margin">
                 <label>
-                    <input type="checkbox" name="promotionServicesInputs" v-model="services" value="Директ">
+                    <input type="checkbox" name="services" v-model="services" value="Директ">
                     Директ
                 </label>
             </div>
             <div class="uk-margin">
                 <label>
-                    <input type="checkbox" name="promotionServicesInputs" v-model="services" value="SMM">
+                    <input type="checkbox" name="services" v-model="services" value="SMM">
                     SMM
                 </label>
             </div>
             <div class="uk-margin">
                 <label>
-                    <input type="checkbox" name="promotionServicesInputs" v-model="services" value="Другое">
+                    <input type="checkbox" name="services" v-model="services" value="Другое">
                     Другое
                 </label>
             </div>
@@ -52,8 +52,6 @@ export default {
     },
     methods: {
         stepHandler() {
-            console.log(services, ' ', text),
-
             this.$store.dispatch(
                 'inputPromotionInfo', {
                     promotionServicesInputs: this.services, 

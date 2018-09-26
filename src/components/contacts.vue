@@ -5,21 +5,19 @@
             <p>
                 Введите контактные данные
             </p>
-            <div class="uk-flex uk-child-width-1-3 uk-margin-large">
-                <div class="uk-margin">
-                    <label>
-                        Ваше имя:
-                        <input type="text" v-model="contactsName">
-                    </label>
-                </div>
-                <div class="uk-margin">
-                    <label>
-                        Ваш телефон:
-                        <input type="tel" v-model="contactsTel">
-                    </label>
-                </div>
+            <div class="uk-margin">
+                <label>
+                    Ваше имя:
+                    <input type="text" v-model="contactsName">
+                </label>
             </div>
-            <button class="uk-button uk-button-secondary" type="button" @click="stepHandler(pickedOption)">
+            <div class="uk-margin">
+                <label>
+                    Ваш телефон:
+                    <input type="tel" v-model="contactsTel">
+                </label>
+            </div>
+            <button class="uk-button uk-button-secondary" type="button" @click="stepHandler()">
                 Далее <span uk-icon="arrow-right"></span>
             </button> 
         </div>
@@ -27,6 +25,8 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex';
+
 export default {
     data() {
         return {
@@ -35,12 +35,18 @@ export default {
         }
     },
     methods: {
-        stepHandler(type) {
+        stepHandler() {
             this.$store.dispatch('inputContactData', {
-                contactsName: contactsName,
-                contactsTel: contactsTel
+                projectType: this.projectType,
+                contactsName: this.contactsName,
+                contactsTel: this.contactsTel
             });
         }
+    },
+    computed: {
+        ...mapGetters([
+            'projectType'
+        ])
     }
 }
 </script>

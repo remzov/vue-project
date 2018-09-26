@@ -14,15 +14,24 @@ export default new Vuex.Store({
         pickedServiceType(context, payload) {
             switch (payload) {
                 case 'developing': {
-                    context.commit('setServiceType', 'developingType');
+                    context.commit('setServiceType', {
+                        projectType: 'developing',
+                        nextStep: 'developingType'
+                    });
                     break;
                 }
                 case 'remaking': {
-                    context.commit('setServiceType', 'remakingLink');
+                    context.commit('setServiceType', {
+                        projectType: 'remaking',
+                        nextStep: 'remakingLink'
+                    });
                     break;
                 }
                 case 'promotion': {
-                    context.commit('setServiceType', 'promotionLink');
+                    context.commit('setServiceType', {
+                        projectType: 'promotion',
+                        nextStep: 'promotionLink'
+                    });
                     break;
                 }
                 default: false;
@@ -38,7 +47,21 @@ export default new Vuex.Store({
             context.commit('setRemakingLink', payload);
         },
         inputContactData(context, payload) {
-            context.commit('setContactsData', payload);
+            switch (payload.projectType) {
+                case 'developing': {
+                    context.commit('setDevelopingContacts', payload);
+                    break;
+                }
+                case 'remaking': {
+                    context.commit('setRemakingContacts', payload);
+                    break;
+                }
+                case 'promotion': {
+                    context.commit('setPromotionContacts', payload);
+                    break;
+                }
+                default: false;
+            } 
         },
         pickedDevelopingType(context, payload) {
             context.commit('setDevelopingType', payload);
@@ -46,8 +69,8 @@ export default new Vuex.Store({
     },
     mutations: {
         setServiceType(state, payload) {
-            state.steps = state.steps.concat(payload);
-            state.data.serviceType = payload;
+            state.steps = state.steps.concat(payload.nextStep);
+            state.data.serviceType = payload.projectType;
         },
         setPromotionLink(state, payload) {
             state.steps = state.steps.concat('promotionInfo');
@@ -63,23 +86,16 @@ export default new Vuex.Store({
             state.data.contactsName = payload.contactsName;
             state.data.contactsTel = payload.contactsTel;
         },
-        setRemakingLink(state, payload) {
-            state = {
-                ...state, 
-                steps: state.steps.concat('remakingLink'),
-                data: {
-                    remakingLink: payload
-                }
-            }
+        setPromotionContacts(state, payload) {
+            state.steps = state.steps.concat('promotionSubmit');
+            state.data.contactsName = payload.contactsName;
+            state.data.contactsTel = payload.contactsTel;
         },
-        setDevelopingType(state, payload) {
-            state = {
-                ...state, 
-                steps: state.steps.concat('developingType'),
-                data: {
-                    developingType: payload
-                }
-            }
+        setRemakingContacts() {
+
+        },
+        setDevelopingContacts() {
+
         }
     },
     getters: {
@@ -88,6 +104,19 @@ export default new Vuex.Store({
         },
         lastStepIndex(state) {
             return state.steps.length - 1 ;
+        },
+        projectType(state) {
+            return state.data.serviceType;
+        },
+        promotionProjectData(state) {
+            return {
+                type: state.data.serviceType,
+                link: state.data.promotionLink,
+                services: state.data.promotionServices,
+                comment: state.data.promotionComment,
+                contactsName: state.data.contactsName,
+                contactsTel: state.data.contactsTel
+            }
         }
     },
 });

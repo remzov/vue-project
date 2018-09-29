@@ -6,23 +6,24 @@
                 Подтвердите ваш заказ.
             </p>
             <form class="uk-form">
-                <div class="uk-margin">
+                <div v-if="data.link" class="uk-margin">
                     <div class="label">Ссылка на старый сайт:</div>
                     <div class="result">{{ data.link }}</div>
                 </div>
-                <div class="uk-margin">
+                <div v-if="data.services.length > 0" class="uk-margin">
                     <div class="label">Список услуг:</div>
                     <div class="result">{{ data.services }}</div>
                 </div>
-                <div class="uk-margin">
+                <div v-if="data.comment" class="uk-margin">
                     <div class="label">Ваш комментарий:</div>
                     <div class="result">{{ data.comment }}</div>
                 </div>
-                <div class="uk-margin">
+                <div v-if="data.contactsName" 
+                class="uk-margin">
                     <div class="label">Ваше имя:</div>
                     <div class="result">{{ data.contactsName }}</div>
                 </div>
-                <div class="uk-margin">
+                <div v-if="data.contactsTel" class="uk-margin">
                     <div class="label">Ваш телефон:</div>
                     <div class="result">{{ data.contactsTel }}</div>
                 </div>
@@ -40,15 +41,11 @@
 
 <script>
 export default {
-    data() {
-        return {
-            link: ''
-        }
-    },
-    props: ['data'],
+    props: ['data', 'reset'],
     methods: {
         submitOrder() {
-            alert('заказ отправлен')
+            alert('заказ отправлен!');
+            this.reset();
         }
     }
 }

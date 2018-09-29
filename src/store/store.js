@@ -7,7 +7,12 @@ export default new Vuex.Store({
     state: {
         steps: ['greetings'],
         data: {
-            serviceType: ''
+            serviceType: '',
+            promotionLink: '',
+            promotionServices: '',
+            promotionComment: '',
+            contactsName: '',
+            contactsTel: ''
         }
     },
     actions: {
@@ -66,6 +71,9 @@ export default new Vuex.Store({
         pickedDevelopingType(context, payload) {
             context.commit('setDevelopingType', payload);
         },
+        reset(context) {
+            context.commit('reset');
+        }
     },
     mutations: {
         setServiceType(state, payload) {
@@ -96,6 +104,12 @@ export default new Vuex.Store({
         },
         setDevelopingContacts() {
 
+        },
+        reset(state) {
+            state.steps = ['greetings'];
+            for (let field in state.data) {
+                field = '';
+            }
         }
     },
     getters: {

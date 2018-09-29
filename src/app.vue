@@ -1,13 +1,17 @@
 <template>
     <div id="app">
         <div class="uk-margin-top">
-            <greetings v-if="this.steps[this.lastStepIndex] == 'greetings'"/>
-            <remakingLink v-if="this.steps[this.lastStepIndex] == 'remakingLink'"/>
-            <developingType v-if="this.steps[this.lastStepIndex] == 'developingType'"/>
-            <promotionLink v-if="this.steps[this.lastStepIndex] == 'promotionLink'"/>
-            <promotionInfo v-if="this.steps[this.lastStepIndex] == 'promotionInfo'"/>
-            <contacts v-if="this.steps[this.lastStepIndex] == 'contacts'"/>
-            <promotionSubmit :data="promotionProjectData" v-if="this.steps[this.lastStepIndex] == 'promotionSubmit'"/>
+            <greetings v-if="steps[lastStepIndex] == 'greetings'"/>
+            <remakingLink v-if="steps[lastStepIndex] == 'remakingLink'"/>
+            <developingType v-if="steps[lastStepIndex] == 'developingType'"/>
+            <promotionLink v-if="steps[lastStepIndex] == 'promotionLink'"/>
+            <promotionInfo v-if="steps[lastStepIndex] == 'promotionInfo'"/>
+            <contacts v-if="steps[lastStepIndex] == 'contacts'"/>
+            <promotionSubmit 
+                v-if="steps[lastStepIndex] == 'promotionSubmit'"
+                :data="promotionProjectData" 
+                :reset="reset"
+            />
         </div>
     </div>
 </template>
@@ -40,6 +44,11 @@ export default {
             'projectType',
             'promotionProjectData'
         ])
+    },
+    methods: {
+        reset() {
+            this.$store.dispatch('reset');
+        }
     }
 }
  

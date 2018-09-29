@@ -1,26 +1,34 @@
 <template>
-    <div class="uk-container uk-container-small">
-        <div class="uk-text-center">
-            <h1>Продвижение сайта.</h1>
-            <p>
-                Введите контактные данные
-            </p>
-            <div class="uk-margin">
+    <div class="uk-text-center">
+        <h1>Продвижение сайта.</h1>
+        <p>
+            Введите контактные данные
+        </p>
+        <div class="uk-flex uk-flex-column uk-flex-center uk-flex-middle uk-margin-large">
+            <div>
                 <label>
-                    Ваше имя:
-                    <input type="text" v-model="contactsName">
+                    <div class="uk-margin-small">Ваше имя:</div>  
+                    <input class="uk-input" type="text" v-model="contactsName">
                 </label>
             </div>
             <div class="uk-margin">
                 <label>
-                    Ваш телефон:
-                    <input type="tel" v-model="contactsTel">
+                    <div class="uk-margin-small">Ваш телефон:</div>  
+                    <input class="uk-input" type="tel" v-model="contactsTel">
                 </label>
             </div>
-            <button class="uk-button uk-button-secondary" type="button" @click="stepHandler()">
-                Далее <span uk-icon="arrow-right"></span>
-            </button> 
         </div>
+        <div class="uk-flex uk-flex-center">
+            <button class="uk-button" type="button" @click="stepBack">
+                <span uk-icon="arrow-left"></span> Назад 
+            </button>  
+            <button class="uk-button uk-button-secondary" type="button" @click="stepForward">
+                Далее <span uk-icon="arrow-right"></span>
+            </button>    
+            <button class="uk-button" type="button" @click="reset">
+                Сбросить
+            </button>  
+        </div>  
     </div>
 </template>
 
@@ -30,12 +38,19 @@ import {mapGetters} from 'vuex';
 export default {
     data() {
         return {
-            contactsName: '',
-            contactsTel: ''
+            contactsName: this.data.contactsName,
+            contactsTel: this.data.contactsTel
         }
     },
+    props: ['data'],
     methods: {
-        stepHandler() {
+        reset() {
+            this.$store.dispatch('reset');
+        },
+        stepBack() {
+            this.$store.dispatch('stepBack');
+        },
+        stepForward() {
             this.$store.dispatch('inputContactData', {
                 contactsName: this.contactsName,
                 contactsTel: this.contactsTel

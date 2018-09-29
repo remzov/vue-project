@@ -1,17 +1,23 @@
 <template>
-    <div class="uk-container uk-container-small">
-        <div class="uk-text-center">
-            <h1>Продвижение сайта.</h1>
-            <p>
+    <div class="uk-text-center">
+        <h1>Продвижение сайта.</h1>
+        <p>
             Оставьте ссылку на свой старый сайт.
-            </p>
-            <div class="uk-flex uk-child-width-1-3 uk-margin-large uk-flex-center">
-                <input class="uk-input" type="text" v-model="link"> 
-            </div> 
-            <button class="uk-button uk-button-secondary" type="button" @click="stepHandler">
+        </p>
+        <div class="uk-flex uk-child-width-1-3 uk-margin-large uk-flex-center">
+            <input class="uk-input" type="text" v-model="link"> 
+        </div> 
+        <div class="uk-flex uk-flex-center">
+            <button class="uk-button" type="button" @click="stepBack">
+                <span uk-icon="arrow-left"></span> Назад 
+            </button>  
+            <button class="uk-button uk-button-secondary" type="button" @click="stepForward">
                 Далее <span uk-icon="arrow-right"></span>
             </button>    
-        </div>
+            <button class="uk-button" type="button" @click="reset">
+                Сбросить
+            </button>  
+        </div>  
     </div>
 </template>
 
@@ -19,13 +25,20 @@
 export default {
     data() {
         return {
-            link: ''
+            link: this.data.link
         }
     },
+    props: ['data'],
     methods: {
-        stepHandler() {
+        reset() {
+            this.$store.dispatch('reset');
+        },
+        stepBack() {
+            this.$store.dispatch('stepBack');
+        },
+        stepForward() {
             this.$store.dispatch('inputPromotionLink', this.link);
-        }
+        } 
     }
 }
 </script>

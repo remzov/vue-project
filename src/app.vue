@@ -1,17 +1,32 @@
 <template>
     <div id="app">
         <div class="uk-margin-top">
-            <greetings v-if="currentStep == 'greetings'"/>
-            <!-- <remakingLink v-if="currentStep == 'remakingLink'"/>
-            <developingType v-if="currentStep == 'developingType'"/> -->
-            <promotionLink v-if="currentStep == 'promotionLink'"/>
-            <promotionInfo v-if="currentStep == 'promotionInfo'"/>
-            <contacts v-if="currentStep == 'contacts'"/>
-            <promotionSubmit 
-                v-if="currentStep == 'promotionSubmit'"
-                :data="promotionProjectData" 
-                :reset="reset"
-            />
+            <div class="uk-container uk-container-small">
+               <div class="wrapper">
+                    <greetings 
+                    v-if="currentStep == 'greetings'"
+                    :data="data"
+                    />
+                    <!-- <remakingLink v-if="currentStep == 'remakingLink'"/>
+                    <developingType v-if="currentStep == 'developingType'"/> -->
+                    <promotionLink 
+                        v-if="currentStep == 'promotionLink'"
+                        :data="data"
+                    />
+                    <promotionInfo 
+                        v-if="currentStep == 'promotionInfo'"
+                        :data="data"
+                    />
+                    <contacts 
+                        v-if="currentStep == 'contacts'"
+                        :data="data"
+                    />
+                    <promotionSubmit 
+                        v-if="currentStep == 'promotionSubmit'"
+                        :data="data" 
+                    />
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -40,14 +55,16 @@ export default {
     computed: {
         ...mapGetters([
             'currentStep',
-            'promotionProjectData'
+            'data'
         ])
-    },
-    methods: {
-        reset() {
-            this.$store.dispatch('reset');
-        }
     }
 }
  
 </script>
+
+<style scoped>
+    .wrapper {
+        padding: 30px;
+        border: 1px solid #000;
+    }
+</style>

@@ -3,16 +3,25 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
+const INITIAL_PATH = ['greetings'];
+const PROMOTION_PATH = ['promotionLink', 'promotionInfo', 'contacts', 'promotionSubmit'];
+
+const INITIAL_PROMOTION_DATA = {
+    serviceType: '',
+    promotionLink: '',
+    promotionServices: '',
+    promotionComment: '',
+    contactsName: '',
+    contactsTel: ''
+}
+
 export default new Vuex.Store({
     state: {
-        steps: ['greetings'],
+        steps: {
+            path: INITIAL_PATH,
+            current: 0
+        },
         data: {
-            serviceType: '',
-            promotionLink: '',
-            promotionServices: '',
-            promotionComment: '',
-            contactsName: '',
-            contactsTel: ''
         }
     },
     actions: {
@@ -20,22 +29,23 @@ export default new Vuex.Store({
             switch (payload) {
                 case 'developing': {
                     context.commit('setServiceType', {
-                        projectType: 'developing',
-                        nextStep: 'developingType'
+                        type: 'developing',
+                        path: 'developing'
                     });
                     break;
                 }
                 case 'remaking': {
                     context.commit('setServiceType', {
-                        projectType: 'remaking',
-                        nextStep: 'remakingLink'
+                        type: 'remaking',
+                        path: 'remaking'
                     });
                     break;
                 }
                 case 'promotion': {
                     context.commit('setServiceType', {
-                        projectType: 'promotion',
-                        nextStep: 'promotionLink'
+                        type: 'promotion',
+                        path: PROMOTION_PATH,
+                        initialData: INITIAL_PROMOTION_DATA
                     });
                     break;
                 }
@@ -52,7 +62,7 @@ export default new Vuex.Store({
             context.commit('setRemakingLink', payload);
         },
         inputContactData(context, payload) {
-            switch (payload.projectType) {
+            switch (this.state.data.serviceType) {
                 case 'developing': {
                     context.commit('setDevelopingContacts', payload);
                     break;
@@ -77,25 +87,26 @@ export default new Vuex.Store({
     },
     mutations: {
         setServiceType(state, payload) {
-            state.steps = state.steps.concat(payload.nextStep);
-            state.data.serviceType = payload.projectType;
+            state.steps.path = payload.path;
+            state.data = payload.initialData;
+            state.data.serviceType = payload.type;
         },
         setPromotionLink(state, payload) {
-            state.steps = state.steps.concat('promotionInfo');
+            state.steps.current++;
             state.data.promotionLink = payload;
         },
         inputPromotionInfo(state, payload) {
-            state.steps = state.steps.concat('contacts');
+            state.steps.current++;
             state.data.promotionServices = payload.promotionServicesInputs;
             state.data.promotionComment = payload.promotionServicesText;
         },
         setContactsData(state, payload) {
-            state.steps = state.steps.concat('promotionSubmit');
+            state.steps.current++;
             state.data.contactsName = payload.contactsName;
             state.data.contactsTel = payload.contactsTel;
         },
         setPromotionContacts(state, payload) {
-            state.steps = state.steps.concat('promotionSubmit');
+            state.steps.current++;
             state.data.contactsName = payload.contactsName;
             state.data.contactsTel = payload.contactsTel;
         },
@@ -106,21 +117,16 @@ export default new Vuex.Store({
 
         },
         reset(state) {
-            state.steps = ['greetings'];
+            state.steps.path = ['greetings'];
+            state.steps.current = 0;
             for (let field in state.data) {
                 field = '';
             }
         }
     },
     getters: {
-        steps(state) {
-            return state.steps;
-        },
-        lastStepIndex(state) {
-            return state.steps.length - 1 ;
-        },
-        projectType(state) {
-            return state.data.serviceType;
+        currentStep(state) {
+            return state.steps.path[state.steps.current];
         },
         promotionProjectData(state) {
             return {

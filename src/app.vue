@@ -1,14 +1,14 @@
 <template>
     <div id="app">
         <div class="uk-margin-top">
-            <greetings v-if="steps[lastStepIndex] == 'greetings'"/>
-            <remakingLink v-if="steps[lastStepIndex] == 'remakingLink'"/>
-            <developingType v-if="steps[lastStepIndex] == 'developingType'"/>
-            <promotionLink v-if="steps[lastStepIndex] == 'promotionLink'"/>
-            <promotionInfo v-if="steps[lastStepIndex] == 'promotionInfo'"/>
-            <contacts v-if="steps[lastStepIndex] == 'contacts'"/>
+            <greetings v-if="currentStep == 'greetings'"/>
+            <!-- <remakingLink v-if="currentStep == 'remakingLink'"/>
+            <developingType v-if="currentStep == 'developingType'"/> -->
+            <promotionLink v-if="currentStep == 'promotionLink'"/>
+            <promotionInfo v-if="currentStep == 'promotionInfo'"/>
+            <contacts v-if="currentStep == 'contacts'"/>
             <promotionSubmit 
-                v-if="steps[lastStepIndex] == 'promotionSubmit'"
+                v-if="currentStep == 'promotionSubmit'"
                 :data="promotionProjectData" 
                 :reset="reset"
             />
@@ -39,9 +39,7 @@ export default {
     },
     computed: {
         ...mapGetters([
-            'steps',
-            'lastStepIndex',
-            'projectType',
+            'currentStep',
             'promotionProjectData'
         ])
     },

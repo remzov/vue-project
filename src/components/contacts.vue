@@ -37,16 +37,10 @@ export default {
     methods: {
         stepHandler() {
             this.$store.dispatch('inputContactData', {
-                projectType: this.projectType,
                 contactsName: this.contactsName,
                 contactsTel: this.contactsTel
             });
         }
-    },
-    computed: {
-        ...mapGetters([
-            'projectType'
-        ])
     }
 }
 </script>

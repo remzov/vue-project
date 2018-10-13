@@ -72,6 +72,6 @@ export default {
     }
     label {
         margin-right: 25px;
-        font-size: 24px;
+        font-size: 20px;
     }
 </style>

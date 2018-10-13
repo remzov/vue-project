@@ -4,9 +4,19 @@ import Vuex from 'vuex';
 Vue.use(Vuex);
 
 const INITIAL_PATH = ['greetings'];
-const PROMOTION_PATH = ['promotionLink', 'promotionInfo', 'contacts', 'promotionSubmit'];
+const PROMOTION_PATH = ['oldlink', 'promotionInfo', 'contacts', 'promotionSubmit'];
+const REMAKING_PATH = ['oldlink', 'promotionInfo', 'contacts', 'remakingSubmit'];
 
 const INITIAL_PROMOTION_DATA = {
+    serviceType: '',
+    link: '',
+    services: [],
+    comment: '',
+    contactsName: '',
+    contactsTel: ''
+}
+
+const INITIAL_REMAKING_DATA = {
     serviceType: '',
     link: '',
     services: [],
@@ -44,7 +54,8 @@ export default new Vuex.Store({
                 case 'remaking': {
                     context.commit('setServiceType', {
                         type: 'remaking',
-                        path: 'remaking'
+                        path: REMAKING_PATH,
+                        initialData: {...INITIAL_REMAKING_DATA}
                     });
                     break;
                 }

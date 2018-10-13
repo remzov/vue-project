@@ -1,6 +1,6 @@
 <template>
     <div class="uk-text-center">
-        <h1>Продвижение сайта.</h1>
+        <h1>{{data.serviceType}}</h1>
         <p>
             Оставьте ссылку на свой старый сайт.
         </p>
@@ -37,7 +37,7 @@ export default {
             this.$store.dispatch('stepBack');
         },
         stepForward() {
-            this.$store.dispatch('inputPromotionLink', this.link);
+            this.$store.dispatch('inputLink', this.link);
         } 
     }
 }

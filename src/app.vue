@@ -4,13 +4,12 @@
             <div class="uk-container uk-container-small">
                <div class="wrapper">
                     <greetings 
-                    v-if="currentStep == 'greetings'"
-                    :data="data"
+                        v-if="currentStep == 'greetings'"
+                        :data="data"
                     />
-                    <!-- <remakingLink v-if="currentStep == 'remakingLink'"/>
-                    <developingType v-if="currentStep == 'developingType'"/> -->
-                    <promotionLink 
-                        v-if="currentStep == 'promotionLink'"
+                    <!-- <developingType v-if="currentStep == 'developingType'"/>  -->
+                    <oldLink 
+                        v-if="currentStep == 'oldLink'"
                         :data="data"
                     />
                     <promotionInfo 
@@ -35,7 +34,7 @@
 import {mapGetters} from 'vuex';
 import greetings from './components/greetings.vue';
 import remakingLink from './components/remakingLink.vue';
-import promotionLink from './components/promotionLink.vue';
+import oldLink from './components/oldLink.vue';
 import developingType from './components/developingType.vue';
 import promotionInfo from './components/promotionInfo.vue';
 import contacts from './components/contacts.vue';
@@ -45,8 +44,7 @@ export default {
     name: 'app',
     components: {
         greetings,
-        remakingLink,
-        promotionLink,
+        oldLink,
         developingType,
         promotionInfo,
         contacts,
